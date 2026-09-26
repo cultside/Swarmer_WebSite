@@ -1,0 +1,659 @@
+/* ============================================================
+   SWARMER — в духе fraternitas.ru
+   Чёрный фон · антиква в заголовках · узкий sans в тексте
+   ============================================================ */
+
+:root {
+  --bg: #000;
+  --fg: #e9eaeb;
+  --muted: #a8a8a8;
+  --dim: #808080;
+  --line: rgba(233, 234, 235, 0.3);
+  --serif: "EB Garamond", "Apple Garamond CYR", Georgia, "Times New Roman", serif;
+  --sans: "PT Sans Narrow", "Liberation Sans Narrow", "Arial Narrow", system-ui, sans-serif;
+  --pad: clamp(20px, 4.2vw, 60px);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ---------- Общие элементы ---------- */
+
+.marker {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--fg);
+  padding-bottom: 18px;
+  border-bottom: 0.8px solid var(--line);
+  margin-bottom: 60px;
+}
+
+.display {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(44px, 7.2vw, 96px);
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+}
+
+.lead {
+  font-family: var(--serif);
+  font-size: clamp(20px, 2.2vw, 30px);
+  line-height: 1.35;
+  max-width: 34ch;
+  margin-top: 26px;
+}
+
+.section-head { margin-bottom: 64px; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 16px;
+  border-radius: 6px;
+  background: var(--fg);
+  color: #000;
+  border: 0.8px solid var(--fg);
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  height: 32px;
+  transition: background 0.25s var(--ease), color 0.25s var(--ease);
+}
+
+.btn:hover { background: transparent; color: var(--fg); }
+
+/* ---------- Liquid glass ---------- */
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.045);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  border: 0.8px solid rgba(233, 234, 235, 0.35);
+  border-radius: 18px;
+  box-shadow:
+    0 1px 0 0 rgba(255, 255, 255, 0.16) inset,
+    0 24px 50px -30px rgba(0, 0, 0, 0.95);
+}
+
+.glass-frame {
+  position: relative;
+  border-radius: 18px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  border: 0.8px solid rgba(233, 234, 235, 0.3);
+  box-shadow:
+    0 1px 0 0 rgba(255, 255, 255, 0.18) inset,
+    0 30px 60px -34px rgba(0, 0, 0, 0.95);
+  transition: background 0.35s var(--ease), border-color 0.35s var(--ease);
+}
+
+.glass-frame:hover {
+  background: rgba(255, 255, 255, 0.085);
+  border-color: rgba(233, 234, 235, 0.45);
+}
+
+/* ============================================================
+   Шапка
+   ============================================================ */
+
+.masthead {
+  min-height: 92vh;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  padding: 40px var(--pad) 34px;
+}
+
+.masthead-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: url("assets/wraps.jpg") center 42% / cover no-repeat;
+  filter: grayscale(1) contrast(1.15) brightness(1.05);
+  transform: scale(1.04);
+}
+
+/* Затемнение: гасим блики по краям, центр оставляем под логотип */
+.masthead::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.12) 42%, rgba(0,0,0,0.75) 100%),
+    radial-gradient(80% 60% at 50% 45%, rgba(0,0,0,0.12) 0%, rgba(0,0,0,0.8) 100%);
+  pointer-events: none;
+}
+
+.masthead-inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.logo {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(56px, 16.5vw, 250px);
+  line-height: 0.9;
+  text-align: center;
+  margin: auto 0;
+  padding: 0 0.08em;
+  color: var(--fg);
+  text-shadow: 0 6px 50px rgba(0, 0, 0, 0.85);
+}
+
+.masthead-bottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 30px;
+  flex-wrap: wrap;
+  border-top: 0.8px solid var(--line);
+  padding-top: 18px;
+}
+
+.masthead-tag {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.nav { display: flex; gap: 52px; }
+
+.nav a {
+  color: var(--fg);
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 2px;
+  transition: color 0.25s var(--ease);
+}
+
+.nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s var(--ease);
+}
+
+.nav a:hover::after { transform: scaleX(1); }
+
+/* ============================================================
+   Секции
+   ============================================================ */
+
+.section {
+  padding: 96px var(--pad);
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 40px;
+}
+
+.columns p {
+  font-family: var(--serif);
+  font-size: clamp(18px, 1.7vw, 22px);
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/* ---------- Фото ---------- */
+
+.shot {
+  overflow: hidden;
+  background: #0a0a0a;
+}
+
+.shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(1) contrast(1.12) brightness(0.92);
+  transition: transform 0.7s var(--ease), filter 0.5s var(--ease);
+}
+
+.shot:hover img { transform: scale(1.03); filter: grayscale(1) contrast(1.15) brightness(1); }
+
+/* Пропорции подбираем под формат исходников */
+.shot--wide { aspect-ratio: 16 / 9; border-radius: 4px; }
+.shot--square { aspect-ratio: 1 / 1; }
+.shot--portrait { aspect-ratio: 4 / 5; }
+
+/* ---------- О клубе ---------- */
+
+.club-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(30px, 5vw, 70px);
+  align-items: center;
+  margin-bottom: 56px;
+}
+
+/* ---------- Правила ---------- */
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 0.8px;
+  background: var(--line);
+  border: 0.8px solid var(--line);
+}
+
+.card {
+  background: rgba(0, 0, 0, 0.82);
+  padding: 36px 28px;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  transition: background 0.3s var(--ease);
+}
+
+.card:hover { background: #0d0d0d; }
+
+.card h3 {
+  font-size: 16px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.card p {
+  font-family: var(--serif);
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/* ---------- Спарринг: текст + квадратное фото ---------- */
+
+.action-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
+  gap: clamp(30px, 5vw, 70px);
+  align-items: center;
+}
+
+.action-note {
+  font-family: var(--serif);
+  font-size: clamp(18px, 1.8vw, 24px);
+  line-height: 1.5;
+  color: var(--muted);
+  max-width: 32ch;
+  margin-top: 28px;
+}
+
+/* ---------- Тренер: фото + факты ---------- */
+
+.coach-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.75fr) minmax(0, 1fr);
+  gap: clamp(30px, 5vw, 70px);
+  align-items: start;
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.8px;
+  background: var(--line);
+  border: 0.8px solid var(--line);
+}
+
+.fact {
+  background: rgba(0, 0, 0, 0.82);
+  padding: 30px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.fact-label {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+.fact-value {
+  font-family: var(--serif);
+  font-size: 20px;
+  line-height: 1.4;
+}
+
+/* ============================================================
+   FAQ
+   ============================================================ */
+
+.faq {
+  border-top: 0.8px solid var(--line);
+  max-width: 900px;
+}
+
+.faq-item { border-bottom: 0.8px solid var(--line); }
+
+.faq-item summary {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 22px 0;
+  cursor: pointer;
+  list-style: none;
+  transition: padding-left 0.3s var(--ease);
+}
+
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary:hover { padding-left: 10px; }
+
+.faq-index {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--dim);
+  flex: 0 0 auto;
+  min-width: 22px;
+}
+
+.faq-q {
+  flex: 1;
+  font-family: var(--serif);
+  font-size: clamp(19px, 2vw, 26px);
+  line-height: 1.25;
+}
+
+.faq-mark {
+  position: relative;
+  flex: 0 0 auto;
+  width: 14px;
+  height: 14px;
+}
+
+.faq-mark::before,
+.faq-mark::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--fg);
+}
+
+.faq-mark::after { transform: rotate(90deg); transition: transform 0.3s var(--ease); }
+.faq-item[open] .faq-mark::after { transform: rotate(0deg); }
+
+.faq-a {
+  padding: 0 0 26px 46px;
+  animation: reveal 0.35s var(--ease);
+}
+
+.faq-a p {
+  font-family: var(--serif);
+  font-size: 19px;
+  line-height: 1.5;
+  color: var(--muted);
+  max-width: 62ch;
+}
+
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* ============================================================
+   Контакт
+   ============================================================ */
+
+.section--contact { padding-bottom: 120px; }
+
+.section-head--center {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contact {
+  padding: clamp(36px, 6vw, 72px) var(--pad);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.contact-role {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 18px;
+}
+
+.phone {
+  font-family: var(--serif);
+  font-size: clamp(38px, 8.5vw, 112px);
+  line-height: 1;
+  color: var(--fg);
+  text-decoration: none;
+  margin-bottom: 34px;
+  transition: opacity 0.25s var(--ease);
+}
+
+.phone:hover { opacity: 0.6; }
+
+.contact-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ============================================================
+   Подвал
+   ============================================================ */
+
+.footer {
+  border-top: 0.8px solid var(--line);
+  padding: 80px var(--pad) 40px;
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+.footer-motto {
+  font-family: var(--serif);
+  font-size: clamp(20px, 2.6vw, 34px);
+  text-align: center;
+  color: var(--muted);
+  margin-bottom: 70px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  gap: 30px;
+  align-items: start;
+  border-top: 0.8px solid var(--line);
+  padding-top: 30px;
+}
+
+.footer-logo {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: clamp(30px, 4.5vw, 60px);
+  line-height: 1;
+}
+
+.footer-dates {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--dim);
+  margin-top: 10px;
+}
+
+.footer-caption {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.footer-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-nav a {
+  color: var(--fg);
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: color 0.25s var(--ease);
+}
+
+.footer-nav a:hover { color: var(--muted); }
+
+/* ============================================================
+   Адаптив: планшет
+   ============================================================ */
+
+@media (max-width: 900px) {
+  .club-grid,
+  .action-grid,
+  .coach-grid { grid-template-columns: 1fr; }
+
+  .action-grid .shot--square { max-width: 460px; }
+  .coach-grid .shot--portrait { max-width: 420px; }
+}
+
+/* ============================================================
+   Адаптив: смартфон (вертикальный формат)
+   ============================================================ */
+
+@media (max-width: 640px) {
+  :root { --pad: 20px; }
+
+  .masthead {
+    min-height: 100svh;
+    padding: 24px var(--pad) 24px;
+  }
+
+  /* На телефоне показываем сцену целиком — фокус на кистях и бинте */
+  .masthead-bg {
+    background-position: 55% 50%;
+    filter: grayscale(1) contrast(1.1) brightness(0.95);
+  }
+
+  .masthead::after {
+    background:
+      linear-gradient(180deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.2) 45%, rgba(0,0,0,0.8) 100%),
+      radial-gradient(120% 55% at 50% 50%, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.78) 100%);
+  }
+
+  .logo {
+    font-size: clamp(44px, 15.5vw, 96px);
+    letter-spacing: 0;
+  }
+
+  .masthead-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .nav {
+    gap: 14px 22px;
+    flex-wrap: wrap;
+  }
+
+  .nav a { font-size: 14px; }
+
+  .section { padding: 68px var(--pad); }
+
+  .marker { margin-bottom: 40px; }
+
+  .section-head { margin-bottom: 44px; }
+
+  /* Фото на всю ширину экрана */
+  .shot--wide,
+  .shot--square,
+  .shot--portrait {
+    aspect-ratio: 4 / 5;
+    max-width: none;
+    width: 100%;
+  }
+
+  .club-grid,
+  .action-grid,
+  .coach-grid { gap: 32px; }
+
+  .columns { gap: 24px; }
+
+  .card,
+  .fact { padding: 26px 22px; min-height: 0; }
+
+  .cards,
+  .facts { grid-template-columns: 1fr; }
+
+  .faq-item summary { padding: 18px 0; gap: 16px; }
+
+  .faq-a { padding-left: 38px; }
+
+  .contact-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .contact-buttons .btn { justify-content: center; width: 100%; }
+
+  .footer { padding: 56px var(--pad) 32px; }
+
+  .footer-motto { margin-bottom: 44px; }
+
+  .footer-grid { grid-template-columns: 1fr; gap: 24px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+  html { scroll-behavior: auto; }
+}
